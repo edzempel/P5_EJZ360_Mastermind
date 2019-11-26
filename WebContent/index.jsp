@@ -39,27 +39,42 @@
 
 		<h2>${game.hello}</h2>
 		<p>${welcome}</p>
-		<c:forEach var="athlete" items="${roster}">
 
-		</c:forEach>
+		<div class="container">
+			<c:forEach var="athlete" items="${roster}">
 
-
-		<div class="${!empty errMsg ? 'alert alert-danger' : '' }"
-			role="alert">
-			<c:forEach var="err" items="${errMsg}">
-				<p>
-					<span><c:out value="${err.key}" /> :</span>
-					<c:out value="${err.value}" />
-				</p>
 			</c:forEach>
+		</div>
+		<div class="container border border-dark">
+			<div class="row game-column border-dark">
+				<c:forTokens items="1,2,3,4,5,6,7,8,9,10,11,12" delims="," var="i">
 
+					<div class="peg-code col-3 rounded-circle border border-dark">${i}</div>
+					<div class="peg-code col-3 rounded-circle border">hello</div>
+					<div class="peg-code col-3 rounded-circle border">hello</div>
+					<div class="peg-code col-3 rounded-circle border">hello</div>
+
+				</c:forTokens>
+			</div>
 		</div>
 
-		<form name="form-add" id="form-add" action="add.jsp" method="post">
-			<input class="btn btn-primary" type="submit" value="Add athlete"
-				id="submit-add" />
+	</div>
 
-		</form>
+	<div class="${!empty errMsg ? 'alert alert-danger' : '' }" role="alert">
+		<c:forEach var="err" items="${errMsg}">
+			<p>
+				<span><c:out value="${err.key}" /> :</span>
+				<c:out value="${err.value}" />
+			</p>
+		</c:forEach>
+
+	</div>
+
+	<form name="form-add" id="form-add" action="add.jsp" method="post">
+		<input class="btn btn-primary" type="submit" value="Add athlete"
+			id="submit-add" />
+
+	</form>
 
 	</div>
 
