@@ -27,7 +27,7 @@
 				<li class="nav-item active"><a class="nav-link"
 					href="FoamServlet">Home <span class="sr-only">(current)</span>
 				</a></li>
-				<li class="nav-item"><a class="nav-link" href="add.jsp">New Game</a></li>
+				<li class="nav-item"><a class="nav-link" href="resetGame">New Game</a></li>
 				<li class="nav-item"><a class="nav-link" href="about.jsp">About</a></li>
 			</ul>
 		</div>
@@ -35,7 +35,7 @@
 
 	<div class="container">
 
-		<h2>FOAMS athlete roster</h2>
+		<h2>${game.hello}</h2>
 		<p>${welcome}</p>
 		<table class="table table-bordered table-striped table-hover">
 			<thead class="thead-primary">
