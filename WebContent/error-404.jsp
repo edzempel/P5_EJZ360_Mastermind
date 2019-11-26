@@ -16,7 +16,7 @@
 </head>
 <body>
 	<nav class="navbar navbar-expand navbar-dark bg-dark">
-		<a class="navbar-brand" href="FoamServlet">FOAMS</a>
+		<a class="navbar-brand" href="mastermind">Mastermind</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNav" aria-controls="navbarNav"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -24,10 +24,9 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item"><a class="nav-link" href="FoamServlet">Home
+				<li class="nav-item"><a class="nav-link" href="mastermind">Home
 				</a></li>
-				<li class="nav-item "><a class="nav-link" href="add.jsp">Add
-						athletes</a></li>
+				<li class="nav-item "><a class="nav-link" href="resetGame">New game</a></li>
 				<li class="nav-item"><a class="nav-link" href="about.jsp">About</a></li>
 			</ul>
 		</div>
@@ -38,8 +37,8 @@
 		<div class="error-details">Sorry, an error has occured.
 			Requested page not found.</div>
 		<div class="error-actions">
-			<a href="FoamServlet" class="btn btn-primary btn-lg"><span
-				class="glyphicon glyphicon-home"></span> Back to FOAMS</a>
+			<a href="mastermind" class="btn btn-primary btn-lg"><span
+				class="glyphicon glyphicon-home"></span>Back to Mastermind</a>
 		</div>
 	</div>
 </body>
