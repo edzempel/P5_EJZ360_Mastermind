@@ -12,4 +12,8 @@
 		<servlet-name>MastermindServlet</servlet-name>
 		<servlet-class>edu.metrostate.ejz360.ics425.p5.controller.MastermindServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>ResetGameServlet</servlet-name>
+		<servlet-class>edu.metrostate.ejz360.ics425.p5.controller.ResetGameServlet</servlet-class>
+	</servlet>
 </web-app>
