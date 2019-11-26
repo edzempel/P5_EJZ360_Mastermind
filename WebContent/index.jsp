@@ -6,7 +6,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1, shrink-to-fit=no">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1, shrink-to-fit=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
@@ -16,7 +17,7 @@
 </head>
 <body>
 	<nav class="navbar navbar-expand navbar-dark bg-dark">
-		<a class="navbar-brand" href="FoamServlet">Mastermind</a>
+		<a class="navbar-brand" href="mastermind">Mastermind</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNav" aria-controls="navbarNav"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -25,9 +26,10 @@
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active"><a class="nav-link"
-					href="FoamServlet">Home <span class="sr-only">(current)</span>
+					href="mastermind">Home <span class="sr-only">(current)</span>
 				</a></li>
-				<li class="nav-item"><a class="nav-link" href="resetGame">New Game</a></li>
+				<li class="nav-item"><a class="nav-link" href="resetGame">New
+						Game</a></li>
 				<li class="nav-item"><a class="nav-link" href="about.jsp">About</a></li>
 			</ul>
 		</div>
@@ -37,47 +39,21 @@
 
 		<h2>${game.hello}</h2>
 		<p>${welcome}</p>
-		<table class="table table-bordered table-striped table-hover">
-			<thead class="thead-primary">
-				<tr>
-					<th>Eligible</th>
-					<th>National ID</th>
-					<th>Last Name</th>
-					<th>First Name</th>
-					<th>Date of Birth</th>
-					<th>Age</th>
-					<th colspan="2">Options</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="athlete" items="${roster}">
-					<tr>
-						<td>${!athlete.eligible ? '<img src="img/ineligible.png" alt="ineligible">': "" }</td>
-						<td><c:out value="${athlete.nationalID}" /></td>
-						<td><c:out value="${athlete.lastName}" /></td>
-						<td><c:out value="${athlete.firstName}" /></td>
-						<td ${empty athlete.dateOfBirth ? "class='table-danger'" : ''}><c:out
-								value="${athlete.dateOfBirth}" /></td>
-						<td ${athlete.eligible == "false" ? "class='table-danger'" : ''  }><c:out
-								value="${athlete.age < 0 ? '' : athlete.age}" /></td>
-						<td><a href='edit?action=edit-form&id=<c:out value="${athlete.nationalID}" />'>edit</a></td>
-						<td><a
-							href='delete?action=confirmDelete&id=<c:out value="${athlete.nationalID}" />'>delete</a></td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+		<c:forEach var="athlete" items="${roster}">
+
+		</c:forEach>
+
 
 		<div class="${!empty errMsg ? 'alert alert-danger' : '' }"
-				role="alert">
-				<c:forEach var="err" items="${errMsg}">
-					<p>
-						<span><c:out value="${err.key}" /> :</span>
-						<c:out value="${err.value}" />
-					</p>
-				</c:forEach>
+			role="alert">
+			<c:forEach var="err" items="${errMsg}">
+				<p>
+					<span><c:out value="${err.key}" /> :</span>
+					<c:out value="${err.value}" />
+				</p>
+			</c:forEach>
 
-			</div>
+		</div>
 
 		<form name="form-add" id="form-add" action="add.jsp" method="post">
 			<input class="btn btn-primary" type="submit" value="Add athlete"
