@@ -47,7 +47,10 @@ public class ResetGameServlet extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		((Game) request.getSession().getAttribute("game")).reset();
+		Game game = ((Game) request.getSession().getAttribute("game"));
+		if (game != null) {
+			game.reset();
+		}
 
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 

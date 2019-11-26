@@ -9,11 +9,19 @@ public class Game implements Serializable {
 	 */
 	private static final long serialVersionUID = 20191125L;
 
+	public Game() {
+		reset();
+	}
+
 	/**
 	 * Initializes new game
 	 */
 	public void reset() {
 		// TODO: create game initializer
+	}
+	
+	public String getHello() {
+		return "Hello Mastermind";
 	}
 
 }
