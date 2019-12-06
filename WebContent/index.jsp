@@ -36,27 +36,36 @@
 	</nav>
 
 	<div class="container">
-
-		<h2>${game.hello}</h2>
-		<p>${welcome}</p>
-
 		<div class="container">
-			<c:forEach var="athlete" items="${roster}">
 
-			</c:forEach>
+			<h2>${game.hello}</h2>
+			<p>${welcome}</p>
 		</div>
-		<div class="container border border-dark">
-			<div class="row game-column border-dark">
+
+		<div id="guesses" class="container">
+
+			<div class="container border">
 				<c:forTokens items="1,2,3,4,5,6,7,8,9,10,11,12" delims="," var="i">
-
-					<div class="peg-code col-3 rounded-circle border border-dark">${i}</div>
-					<div class="peg-code col-3 rounded-circle border">hello</div>
-					<div class="peg-code col-3 rounded-circle border">hello</div>
-					<div class="peg-code col-3 rounded-circle border">hello</div>
-
+					<div class="row game-column border-dark">
+						<div class="col peg-code rounded-circle border border-dark">${i}</div>
+						<div class="col peg-code rounded-circle border">hello</div>
+						<div class="col peg-code rounded-circle border">hello</div>
+						<div class="col peg-code rounded-circle border">hello</div>
+					</div>
 				</c:forTokens>
 			</div>
+
+			<div class="container">
+				<div class="row game-column border border-dark">
+					<div class="col peg-code rounded-circle border border-dark">${i}</div>
+					<div class="col peg-code rounded-circle border">hello</div>
+					<div class="col peg-code rounded-circle border">hello</div>
+					<div class="col peg-code rounded-circle border">hello</div>
+				</div>
+			</div>
+
 		</div>
+
 
 	</div>
 
