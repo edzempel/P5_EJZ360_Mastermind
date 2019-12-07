@@ -3,6 +3,7 @@ package edu.metrostate.ejz360.ics425.p5.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import edu.metrostate.ejz360.ics425.p5.model.Guess.CodePeg;
 
 public class Game implements Serializable {
 	/**
@@ -10,57 +11,70 @@ public class Game implements Serializable {
 	 */
 	private static final long serialVersionUID = 20191125L;
 	public static final int NUM_GUESSES = 12;
-	private ArrayList<Guess> gameboard = new ArrayList<Guess>();
-	private boolean[] winningSpaces;
-	private int turn = 0;
+	private ArrayList<Guess> guesses;
+	private int turn;
+	private Integer winningGuess;
 
-	public enum CodePeg {
-		RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE
-
+	public Integer getWinningGuess() {
+		return winningGuess;
 	}
 
-	public enum KeyPeg {
-		WHITE, BLACK
+	private void setWinningGuess(Integer winningGuess) {
+		this.winningGuess = winningGuess;
 	}
-	
-	private class Guess{
-		private static final int GUESS_SIZE = 4;
-		private CodePeg[] guess = new CodePeg[GUESS_SIZE];
-		
-		public Guess(CodePeg one, CodePeg two, CodePeg three, CodePeg four) {
-			guess[0] = one;
-			guess[1] = two;
-			guess[2] = three;
-			guess[3] = four;
-		}
-		
+
+	private Guess makerCode;
+
+	private Guess getMakerCode() {
+		return makerCode;
 	}
+
+	private void setMakerCode() {
+		this.makerCode = new Guess();
+		makerCode.setGuessPegs(CodePeg.BLUE, CodePeg.GREEN, CodePeg.PURPLE, CodePeg.RED);
+	}
+
+	public boolean isWinner(Guess breakerGuess) {
+		return makerCode.equals(breakerGuess);
+	}
+
 	
 
 	public Game() {
 		reset();
+
 	}
 
 	/**
 	 * Initializes new game
 	 */
 	public void reset() {
-		// TODO: create game initializer
+		winningGuess = null;
+		turn = 0;
+		guesses = new ArrayList<Guess>();
+		setMakerCode();
 	}
 
 	public String getHello() {
 		return "Hello Mastermind";
 	}
-	
+
 	public boolean isOver() {
-		return turn >= NUM_GUESSES;
+		return turn >= NUM_GUESSES || getWinningGuess() != null;
 	}
-	
+
 	public void addGuess(Guess guess) {
-		if( !isOver()) {
-			gameboard.add(guess);
+		if (!isOver()) {
+			guesses.add(guess);
+			if (getMakerCode().equals(guess)) {
+				setWinningGuess(turn);
+			}
 		}
+		turn++;
 	}
-	
+
+	public ArrayList<Guess> getGuesses() {
+		return (ArrayList<Guess>) guesses.clone();
+	}
 
 }
