@@ -62,7 +62,7 @@ public class MastermindServlet extends HttpServlet {
 		if (game == null) {
 			request.getSession().invalidate();
 		} else {
-			if(action == "addGuess") {
+			if(action.equals("addGuess")) {
 				game.addGuess(guess);
 			}
 			
