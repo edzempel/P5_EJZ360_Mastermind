@@ -43,16 +43,36 @@
 		</div>
 
 		<div id="guesses" class="container">
-
 			<div class="container border">
-				<c:forTokens items="1,2,3,4,5,6,7,8,9,10,11,12" delims="," var="i">
+				<c:forEach items="${game.guesses }" var="guess">
 					<div class="row game-column border-dark">
-						<div class="col peg-code rounded-circle border border-dark">${i}</div>
-						<div class="col peg-code rounded-circle border">hello</div>
-						<div class="col peg-code rounded-circle border">hello</div>
-						<div class="col peg-code rounded-circle border">hello</div>
+						<c:forTokens items="${guess}" delims="," var="peg">
+							<div class="col peg-code rounded-circle border">${peg}</div>
+						</c:forTokens>
 					</div>
-				</c:forTokens>
+				</c:forEach>
+
+				<form action="addGuess">
+					<div class="row game-column border-dark">
+						<c:forTokens items="1,2,3,4" delims="," var="i">
+							<div class="col">
+								<input list="colors" id="guess${i}" name="guessPeg${i}" required>
+							</div>
+						</c:forTokens>
+						<div class="col"><input type="hidden" name="action" value="addGuess"/></div>
+						<div class="col"><input type="submit" value="Guess" id="submitGuess"/></div>
+					</div>
+
+					<datalist id="colors">
+						<option value="RED">
+						<option value="ORANGE">
+						<option value="YELLOW">
+						<option value="GREEN">
+						<option value="BLUE">
+						<option value="PURPLE">
+					</datalist>
+				</form>
+
 			</div>
 
 			<div class="container">
