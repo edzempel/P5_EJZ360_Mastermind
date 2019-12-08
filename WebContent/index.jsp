@@ -53,23 +53,29 @@
 				</c:forEach>
 
 				<form action="addGuess">
-					<div class="row game-column border-dark">
+					<div class="form-group row game-column border-dark">
 						<c:forTokens items="1,2,3,4" delims="," var="i">
-							<div class="col">
-								<input list="colors" id="guess${i}" name="guessPeg${i}" required>
+							<div class="col-3">
+								<label class="sr-only" for="guess${i}">Guess peg ${i}</label> <input
+									class="form-control" list="colors" id="guess${i}"
+									name="guessPeg${i}" required>
 							</div>
 						</c:forTokens>
-						<div class="col"><input type="hidden" name="action" value="addGuess"/></div>
-						<div class="col"><input type="submit" value="Guess" id="submitGuess"/></div>
+
+						<div class="col">
+							<input class="form-control" class=".d-none" type="hidden"
+								name="action" value="addGuess" /> <input class="form-control"
+								type="submit" value="Guess" id="submitGuess" />
+						</div>
 					</div>
 
 					<datalist id="colors">
-						<option value="RED">
-						<option value="ORANGE">
-						<option value="YELLOW">
-						<option value="GREEN">
-						<option value="BLUE">
-						<option value="PURPLE">
+						<option value="R">
+						<option value="O">
+						<option value="Y">
+						<option value="G">
+						<option value="B">
+						<option value="P">
 					</datalist>
 				</form>
 

@@ -1,6 +1,8 @@
 package edu.metrostate.ejz360.ics425.p5.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,16 +42,26 @@ public class MastermindServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
 		log("Action: " + action);
+		
 		String[] guessPegs = new String[4];
 		guessPegs[0] = request.getParameter("guessPeg1");
 		guessPegs[1] = request.getParameter("guessPeg2");
 		guessPegs[2] = request.getParameter("guessPeg3");
 		guessPegs[3] = request.getParameter("guessPeg4");
 		log("GuessPegs from parameters: " + guessPegs);
+		
+		HashMap<String, String> paramToColorMap = new HashMap<String, String>();
+		paramToColorMap.put("R", "RED");
+		paramToColorMap.put("O", "ORANGE");
+		paramToColorMap.put("Y", "YELLOW");
+		paramToColorMap.put("G", "GREEN");
+		paramToColorMap.put("B", "BLUE");
+		paramToColorMap.put("P", "PURPLE");
+		
 		CodePeg[] codePegs = new CodePeg[4];
 		
 		for(int i = 0; i < codePegs.length; i++) {
-			codePegs[i] = guessPegs[i] != null ? CodePeg.valueOf(guessPegs[i]) : null;
+			codePegs[i] = guessPegs[i] != null ? CodePeg.valueOf(paramToColorMap.get(guessPegs[i])) : null;
 		}
 		log("Enums from parameters" + codePegs);
 		
