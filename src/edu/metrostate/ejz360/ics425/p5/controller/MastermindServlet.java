@@ -40,6 +40,7 @@ public class MastermindServlet extends HttpServlet {
 
 	private void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// 1. Get data from request
 		String action = request.getParameter("action");
 		log("Action: " + action);
 
@@ -50,6 +51,33 @@ public class MastermindServlet extends HttpServlet {
 		guessPegs[3] = request.getParameter("guessPeg4");
 		log("GuessPegs from parameters: " + guessPegs);
 
+		guessPegs = validateCodePegs(guessPegs);
+
+		CodePeg[] codePegs = new CodePeg[4];
+
+		for (int i = 0; i < codePegs.length; i++) {
+			codePegs[i] = guessPegs[i] != null ? CodePeg.valueOf(guessPegs[i]) : null;
+		}
+		log("Enums from parameters" + codePegs);
+
+		Guess guess = new Guess();
+		guess.setGuessPegs(codePegs[0], codePegs[1], codePegs[2], codePegs[3]);
+
+		// 3. Do the thing
+		Game game = (Game) request.getSession().getAttribute("game");
+		if (game == null) {
+			request.getSession().invalidate();
+		} else {
+			if (action != null && action.equals("addGuess"))
+				game.addGuess(guess);
+
+		}
+		// 5. Forward control
+		request.getRequestDispatcher("/index.jsp").forward(request, response);
+	}
+
+	private String[] validateCodePegs(String[] pegsToCheck) {
+		String [] codePegs = pegsToCheck.clone();
 		HashMap<String, String> paramToColorMap = new HashMap<String, String>();
 		paramToColorMap.put("R", "RED");
 		paramToColorMap.put("O", "ORANGE");
@@ -58,27 +86,15 @@ public class MastermindServlet extends HttpServlet {
 		paramToColorMap.put("B", "BLUE");
 		paramToColorMap.put("P", "PURPLE");
 
-		CodePeg[] codePegs = new CodePeg[4];
-
+		// 2. Validate guesses
 		for (int i = 0; i < codePegs.length; i++) {
-			codePegs[i] = guessPegs[i] != null ? CodePeg.valueOf(paramToColorMap.get(guessPegs[i])) : null;
+			if (!paramToColorMap.containsKey(codePegs[i]))
+				codePegs[i] = null;
+			else
+				codePegs[i] = paramToColorMap.get(codePegs[i]);
 		}
-		log("Enums from parameters" + codePegs);
-
-		Guess guess = new Guess();
-		guess.setGuessPegs(codePegs[0], codePegs[1], codePegs[2], codePegs[3]);
-
-		// 1. Get information
-		Game game = (Game) request.getSession().getAttribute("game");
-		if (game == null) {
-			request.getSession().invalidate();
-		} else {
-			if (action != null && action.equals("addGuess")) {
-				game.addGuess(guess);
-			}
-
-		}
-		request.getRequestDispatcher("/index.jsp").forward(request, response);
+		
+		return codePegs;
 	}
 
 	/**
