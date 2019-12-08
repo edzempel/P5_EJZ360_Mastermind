@@ -38,7 +38,7 @@
 	<div class="container">
 		<div class="container">
 
-			<h2>${game.hello}</h2>
+			<h2>Let's play!</h2>
 			<p>${welcome}</p>
 		</div>
 
@@ -105,13 +105,7 @@
 
 	</div>
 
-	<form name="form-add" id="form-add" action="add.jsp" method="post">
-		<input class="btn btn-primary" type="submit" value="Add athlete"
-			id="submit-add" />
 
-	</form>
-
-	</div>
 
 </body>
 </html>
