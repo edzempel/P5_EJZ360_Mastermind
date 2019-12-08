@@ -44,10 +44,18 @@ class GuessTest {
 		assertNotEquals(guess2, guess3);
 		assertEquals(guess3, guess4);
 	}
-	
+
 	@Test
 	void testToString() {
 		assertEquals("BLUE,GREEN,ORANGE,PURPLE", guess1.toString());
+	}
+
+	@Test
+	void testGetRandomCodePeg() {
+		for (int i = 0; i < 50; i++) {
+			System.out.println(Guess.getRandomCodePeg());
+		}
+
 	}
 
 }
