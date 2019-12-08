@@ -1,6 +1,9 @@
 package edu.metrostate.ejz360.ics425.p5.model;
 
 import java.io.Serializable;
+import java.util.Random;
+
+import edu.metrostate.ejz360.ics425.p5.model.Guess.CodePeg;
 
 public class Guess implements Serializable {
 
@@ -42,6 +45,11 @@ public class Guess implements Serializable {
 	@Override
 	public String toString() {
 		return String.format("%s,%s,%s,%s", guessPegs[0], guessPegs[1], guessPegs[2], guessPegs[3]);
+	}
+	
+	public static CodePeg getRandomCodePeg() {
+		Random rnd = new Random();
+		return CodePeg.values()[(int) Math.floor(rnd.nextInt(6))];
 	}
 
 	public enum CodePeg {
