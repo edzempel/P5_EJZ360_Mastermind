@@ -44,10 +44,14 @@
 
 		<div id="guesses" class="container">
 			<div class="container border">
-				<c:forEach items="${game.guesses }" var="guess">
-					<div class="row game-column border-dark text-center">
+				<c:forEach items="${game.guesses }" var="guess" varStatus="turn">
+					<div class="row text-center">
+						<div class="col .align-middle">${turn.count}
+							${game.winningGuess == turn.count - 1 ? 'Winner!' : '' }</div>
 						<c:forTokens items="${guess}" delims="," var="peg">
-							<div class="col ${peg} rounded-circle border">${peg}</div>
+							<div class="col">
+								<img src="img/codepeg-${peg}.png" alt="${peg}">
+							</div>
 						</c:forTokens>
 					</div>
 				</c:forEach>
@@ -56,21 +60,24 @@
 					<div class="form-group row game-column border-dark">
 						<c:forTokens items="1,2,3,4" delims="," var="i">
 							<div class="col-3">
+								<c:set var="guessParam" value="guessPeg${i}" />
 								<label class="sr-only" for="guess${i}">Guess peg ${i}</label> <input
 									class="form-control" list="colors" id="guess${i}"
-									name="guessPeg${i}" required>
+									name="guessPeg${i}" value="${param[guessParam]}" required>
 							</div>
 						</c:forTokens>
 
 						<div class="col">
 							<input class="form-control" class=".d-none" type="hidden"
 								name="action" value="addGuess" /> <input class="form-control"
-								type="submit" value="Guess" id="submitGuess" />
+								type="submit"
+								value="${!game.over? 'Guess' : empty game.winningGuess ? 'Game Over! Good luck next time!' : 'You win!'}"
+								id="submitGuess" ${game.over? 'disabled' : ''} />
 						</div>
 					</div>
 
 					<datalist id="colors">
-						<option value="R">
+						<option class="PURPLE" value="R">
 						<option value="O">
 						<option value="Y">
 						<option value="G">
@@ -82,12 +89,24 @@
 			</div>
 
 			<div class="container">
-				<div class="row game-column border border-dark text-center">
-					<div class="col peg-code rounded-circle border border-dark">?</div>
-					<div class="col peg-code rounded-circle border">?</div>
-					<div class="col peg-code rounded-circle border">?</div>
-					<div class="col peg-code rounded-circle border">?</div>
+
+				<div class="row game-column border-dark text-center">
+					<c:if test="${empty game.makerCode}">
+						<c:forTokens items="1,2,3,4" delims="," var="index">
+							<div class="col">
+								<img src="img/question-peg.png" alt="?">
+							</div>
+						</c:forTokens>
+					</c:if>
+
+
+					<c:forTokens items="${game.makerCode}" delims="," var="peg">
+						<div class="col">
+							<img src="img/codepeg-${peg}.png" alt="${peg}">
+						</div>
+					</c:forTokens>
 				</div>
+
 			</div>
 
 		</div>
@@ -104,6 +123,7 @@
 		</c:forEach>
 
 	</div>
+
 
 
 

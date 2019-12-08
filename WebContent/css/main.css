@@ -46,6 +46,7 @@ span {
 .PURPLE {
 	color: white;
 	background-color: purple;
+	background-image:url("../img/codepeg-PURPLE.png");
 }
 .peg-code{
 	align-content: center;
@@ -58,4 +59,9 @@ span {
 #guesses.col {
 	background-color: purple;
 
+}
+
+.winner{
+	border: 4px;
+	border-color: #454d55;
 }
