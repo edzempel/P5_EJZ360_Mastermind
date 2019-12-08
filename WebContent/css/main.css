@@ -26,8 +26,29 @@ span {
 	border: 3px;
 }
 
-.peg-code {
+.RED {
 	background-color: red;
+}
+.ORANGE {
+	background-color: orange;
+}
+.YELLOW {
+	background-color: yellow;
+}
+.GREEN {
+	color: white;
+	background-color: green;
+}
+.BLUE {
+	color: white;
+	background-color: blue;
+}
+.PURPLE {
+	color: white;
+	background-color: purple;
+}
+.peg-code{
+	align-content: center;
 }
 
 #guesses{

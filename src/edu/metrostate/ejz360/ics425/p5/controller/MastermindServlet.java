@@ -16,7 +16,7 @@ import edu.metrostate.ejz360.ics425.p5.model.Guess.CodePeg;
 /**
  * Servlet implementation class MastermindServlet
  */
-@WebServlet({"/mastermind", "/addGuess"})
+@WebServlet({ "/mastermind", "/addGuess" })
 public class MastermindServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -42,14 +42,14 @@ public class MastermindServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
 		log("Action: " + action);
-		
+
 		String[] guessPegs = new String[4];
 		guessPegs[0] = request.getParameter("guessPeg1");
 		guessPegs[1] = request.getParameter("guessPeg2");
 		guessPegs[2] = request.getParameter("guessPeg3");
 		guessPegs[3] = request.getParameter("guessPeg4");
 		log("GuessPegs from parameters: " + guessPegs);
-		
+
 		HashMap<String, String> paramToColorMap = new HashMap<String, String>();
 		paramToColorMap.put("R", "RED");
 		paramToColorMap.put("O", "ORANGE");
@@ -57,28 +57,26 @@ public class MastermindServlet extends HttpServlet {
 		paramToColorMap.put("G", "GREEN");
 		paramToColorMap.put("B", "BLUE");
 		paramToColorMap.put("P", "PURPLE");
-		
+
 		CodePeg[] codePegs = new CodePeg[4];
-		
-		for(int i = 0; i < codePegs.length; i++) {
+
+		for (int i = 0; i < codePegs.length; i++) {
 			codePegs[i] = guessPegs[i] != null ? CodePeg.valueOf(paramToColorMap.get(guessPegs[i])) : null;
 		}
 		log("Enums from parameters" + codePegs);
-		
-		Guess guess = new Guess();
-		guess.setGuessPegs(codePegs[0], codePegs[1],codePegs[2],codePegs[3]);
 
+		Guess guess = new Guess();
+		guess.setGuessPegs(codePegs[0], codePegs[1], codePegs[2], codePegs[3]);
 
 		// 1. Get information
 		Game game = (Game) request.getSession().getAttribute("game");
 		if (game == null) {
 			request.getSession().invalidate();
 		} else {
-			if(action != null && action.equals("addGuess")) {
+			if (action != null && action.equals("addGuess")) {
 				game.addGuess(guess);
 			}
-			
-			
+
 		}
 		request.getRequestDispatcher("/index.jsp").forward(request, response);
 	}

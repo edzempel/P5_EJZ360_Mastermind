@@ -45,9 +45,9 @@
 		<div id="guesses" class="container">
 			<div class="container border">
 				<c:forEach items="${game.guesses }" var="guess">
-					<div class="row game-column border-dark">
+					<div class="row game-column border-dark text-center">
 						<c:forTokens items="${guess}" delims="," var="peg">
-							<div class="col peg-code rounded-circle border">${peg}</div>
+							<div class="col ${peg} rounded-circle border">${peg}</div>
 						</c:forTokens>
 					</div>
 				</c:forEach>
@@ -82,11 +82,11 @@
 			</div>
 
 			<div class="container">
-				<div class="row game-column border border-dark">
-					<div class="col peg-code rounded-circle border border-dark">${i}</div>
-					<div class="col peg-code rounded-circle border">hello</div>
-					<div class="col peg-code rounded-circle border">hello</div>
-					<div class="col peg-code rounded-circle border">hello</div>
+				<div class="row game-column border border-dark text-center">
+					<div class="col peg-code rounded-circle border border-dark">?</div>
+					<div class="col peg-code rounded-circle border">?</div>
+					<div class="col peg-code rounded-circle border">?</div>
+					<div class="col peg-code rounded-circle border">?</div>
 				</div>
 			</div>
 
