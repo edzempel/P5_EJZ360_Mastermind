@@ -43,19 +43,31 @@
 		</div>
 
 		<div id="guesses" class="container">
-			<div class="container border">
-				<c:forEach items="${game.guesses }" var="guess" varStatus="turn">
-					<div class="row text-center">
-						<div class="col .align-middle">${turn.count}
-							${game.winningGuess == turn.count - 1 ? 'Winner!' : '' }</div>
-						<c:forTokens items="${guess}" delims="," var="peg">
-							<div class="col">
-								<img src="img/codepeg-${peg}.png" alt="${peg}">
-							</div>
-						</c:forTokens>
-					</div>
-				</c:forEach>
+			<div class="container">
 
+				<div class="row game-column border-dark text-center">
+					<c:choose>
+						<c:when test="${!game.over}">
+							<c:forTokens items="1,2,3,4" delims="," var="index">
+								<div class="col">
+									<img src="img/question-peg.png" alt="?">
+								</div>
+							</c:forTokens>
+						</c:when>
+
+						<c:when test="${game.over}">
+							<c:forTokens items="${game.makerCode}" delims="," var="peg">
+								<div class="col">
+									<img src="img/codepeg-${peg}.png" alt="${peg}">
+								</div>
+							</c:forTokens>
+						</c:when>
+					</c:choose>
+				</div>
+
+			</div>
+
+			<div class="container border">
 				<form action="addGuess">
 					<div class="form-group row game-column border-dark">
 						<c:forTokens items="1,2,3,4" delims="," var="i">
@@ -86,26 +98,17 @@
 					</datalist>
 				</form>
 
-			</div>
-
-			<div class="container">
-
-				<div class="row game-column border-dark text-center">
-					<c:if test="${empty game.makerCode}">
-						<c:forTokens items="1,2,3,4" delims="," var="index">
-							<div class="col">
-								<img src="img/question-peg.png" alt="?">
+				<c:forEach items="${game.reverseGuesses }" var="guess"
+					varStatus="turn">
+					<div class="row text-center">
+						<div class="col-3 .align-middle">${game.winningGuess == turn.count - 1 ? 'Winner!' : 12 - turn.count }</div>
+						<c:forTokens items="${guess}" delims="," var="peg">
+							<div class="col-2">
+								<img src="img/codepeg-${peg}.png" alt="${peg}">
 							</div>
 						</c:forTokens>
-					</c:if>
-
-
-					<c:forTokens items="${game.makerCode}" delims="," var="peg">
-						<div class="col">
-							<img src="img/codepeg-${peg}.png" alt="${peg}">
-						</div>
-					</c:forTokens>
-				</div>
+					</div>
+				</c:forEach>
 
 			</div>
 
@@ -115,12 +118,14 @@
 	</div>
 
 	<div class="${!empty errMsg ? 'alert alert-danger' : '' }" role="alert">
+
 		<c:forEach var="err" items="${errMsg}">
 			<p>
 				<span><c:out value="${err.key}" /> :</span>
 				<c:out value="${err.value}" />
 			</p>
 		</c:forEach>
+
 
 	</div>
 
