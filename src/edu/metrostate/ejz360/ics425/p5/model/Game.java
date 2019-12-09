@@ -2,8 +2,9 @@ package edu.metrostate.ejz360.ics425.p5.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Random;
 
-import edu.metrostate.ejz360.ics425.p5.model.Guess.CodePeg;
+import edu.metrostate.ejz360.ics425.p5.model.Guess.KeyPeg;
 
 public class Game implements Serializable {
 	public static final int NUM_GUESSES = 12;
@@ -12,7 +13,9 @@ public class Game implements Serializable {
 	 */
 	private static final long serialVersionUID = 20191125L;
 	private ArrayList<Guess> guesses;
+	private ArrayList<ArrayList<KeyPeg>> keys;
 	private Guess makerCode;
+	private Random rnd;
 
 	private int turn;
 
@@ -26,6 +29,7 @@ public class Game implements Serializable {
 	public void addGuess(Guess guess) {
 		if (!isOver()) {
 			guesses.add(guess);
+			keys.add(Guess.getKeys(guess, makerCode));
 			if (isWinner(guess)) {
 				setWinningGuess(turn);
 			}
@@ -36,12 +40,19 @@ public class Game implements Serializable {
 	public ArrayList<Guess> getGuesses() {
 		return (ArrayList<Guess>) guesses.clone();
 	}
+	
+	public ArrayList<Guess> getReverseGuesses(){
+		ArrayList<Guess> revArrayList = new ArrayList<Guess>(); 
+        for (int i = guesses.size() - 1; i >= 0; i--) { 
+  
+            // Append the elements in reverse order 
+            revArrayList.add(guesses.get(i)); 
+        } 
+		return revArrayList;
+	}
 
 	public Guess getMakerCode() {
-		if (isOver())
 			return makerCode;
-		else
-			return null;
 	}
 
 	public int getTurn() {
@@ -67,13 +78,19 @@ public class Game implements Serializable {
 		winningGuess = null;
 		turn = 0;
 		guesses = new ArrayList<Guess>();
-		setMakerCode();
+		keys = new ArrayList<ArrayList<KeyPeg>>();
+		rnd = new Random();
+		setMakerCode(rnd);
 	}
 
-	private void setMakerCode() {
+	private void setMakerCode(Random rnd) {
 		this.makerCode = new Guess();
-		makerCode.setGuessPegs(CodePeg.BLUE, CodePeg.GREEN, CodePeg.PURPLE, CodePeg.RED);
+//		makerCode.setGuessPegs(CodePeg.BLUE, CodePeg.GREEN, CodePeg.PURPLE, CodePeg.RED);
+		makerCode.setGuessPegs(Guess.getRandomCodePeg(rnd), Guess.getRandomCodePeg(rnd), Guess.getRandomCodePeg(rnd), Guess.getRandomCodePeg(rnd));
+		
 	}
+
+	
 
 	private void setWinningGuess(Integer winningGuess) {
 		this.winningGuess = winningGuess;

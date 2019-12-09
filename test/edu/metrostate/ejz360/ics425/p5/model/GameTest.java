@@ -56,5 +56,21 @@ class GameTest {
 		assertNotEquals(makerCode, guess3);
 		assertEquals(makerCode, guess4);
 	}
+	
+	@Test
+	void testGetMakerCode() {
+		System.out.println(game.getMakerCode());
+	}
+	
+	@Test
+	void testIsOver() {
+		for (int i = 0; i < 14; i++) {
+			game.addGuess(guess1);
+			if(game.getTurn() < Game.NUM_GUESSES)
+				assertFalse(game.isOver(), "on turn " + game.getTurn());
+			else
+				assertTrue(game.isOver(), "on turn " + game.getTurn());
+		}
+	}
 
 }

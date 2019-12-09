@@ -2,17 +2,22 @@ package edu.metrostate.ejz360.ics425.p5.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import edu.metrostate.ejz360.ics425.p5.model.Guess.CodePeg;
+import edu.metrostate.ejz360.ics425.p5.model.Guess.KeyPeg;
 
 class GuessTest {
 	Guess guess1;
 	Guess guess2;
-	Guess guess3;
-	Guess guess4;
+	Guess correctGuess;
+	Guess makerCode;
 	Guess guessNull;
+	Random rnd;
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -20,10 +25,11 @@ class GuessTest {
 		guess1.setGuessPegs(CodePeg.BLUE, CodePeg.GREEN, CodePeg.ORANGE, CodePeg.PURPLE);
 		guess2 = new Guess();
 		guess2.setGuessPegs(CodePeg.RED, CodePeg.YELLOW, CodePeg.BLUE, CodePeg.BLUE);
-		guess3 = new Guess();
-		guess3.setGuessPegs(CodePeg.GREEN, CodePeg.RED, CodePeg.YELLOW, CodePeg.ORANGE);
-		guess4 = new Guess();
-		guess4.setGuessPegs(CodePeg.GREEN, CodePeg.RED, CodePeg.YELLOW, CodePeg.ORANGE);
+		correctGuess = new Guess();
+		correctGuess.setGuessPegs(CodePeg.GREEN, CodePeg.RED, CodePeg.YELLOW, CodePeg.ORANGE);
+		makerCode = new Guess();
+		makerCode.setGuessPegs(CodePeg.GREEN, CodePeg.RED, CodePeg.YELLOW, CodePeg.ORANGE);
+		rnd = new Random(20191208L);
 	}
 
 	@Test
@@ -41,8 +47,8 @@ class GuessTest {
 
 	@Test
 	void testEqualsObject() {
-		assertNotEquals(guess2, guess3);
-		assertEquals(guess3, guess4);
+		assertNotEquals(guess2, correctGuess);
+		assertEquals(correctGuess, makerCode);
 	}
 
 	@Test
@@ -52,10 +58,31 @@ class GuessTest {
 
 	@Test
 	void testGetRandomCodePeg() {
-		for (int i = 0; i < 50; i++) {
-			System.out.println(Guess.getRandomCodePeg());
+		for (int i = 0; i < 5; i++) {
+			System.out.println(Guess.getRandomCodePeg(rnd)); // YELLOW,ORANGE,ORANGE,GREEN
 		}
 
 	}
+	
+	@Test
+	void testGetKeys() {
+		ArrayList<KeyPeg> allBlack = new ArrayList<KeyPeg>();
+		allBlack.add(KeyPeg.BLACK);
+		allBlack.add(KeyPeg.BLACK);
+		allBlack.add(KeyPeg.BLACK);
+		allBlack.add(KeyPeg.BLACK);
+		ArrayList<KeyPeg> twoWhite = new ArrayList<KeyPeg>();
+		twoWhite.add(KeyPeg.WHITE);
+		twoWhite.add(KeyPeg.WHITE);
+		ArrayList<KeyPeg> oneWhite = new ArrayList<KeyPeg>();
+		oneWhite.add(KeyPeg.WHITE);
+		assertEquals(allBlack,Guess.getKeys(correctGuess, makerCode));
+		assertEquals(twoWhite,Guess.getKeys(guess2, makerCode));
+		assertEquals(oneWhite,Guess.getKeys(guess1, guess2));
+		
+		
+	}
+	
+
 
 }
