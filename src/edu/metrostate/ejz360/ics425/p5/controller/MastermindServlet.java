@@ -1,6 +1,7 @@
 package edu.metrostate.ejz360.ics425.p5.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import edu.metrostate.ejz360.ics425.p5.model.Game;
 import edu.metrostate.ejz360.ics425.p5.model.Guess;
 import edu.metrostate.ejz360.ics425.p5.model.Guess.CodePeg;
+import edu.metrostate.ejz360.ics425.p5.model.Guess.KeyPeg;
 
 /**
  * Servlet implementation class MastermindServlet
@@ -70,6 +72,7 @@ public class MastermindServlet extends HttpServlet {
 		} else {
 			if (action != null && action.equals("addGuess"))
 				game.addGuess(guess);
+			ArrayList<KeyPeg> keys = Guess.getKeys(guess, game.getMakerCode());
 
 		}
 		// 5. Forward control
